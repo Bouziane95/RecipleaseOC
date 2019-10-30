@@ -11,8 +11,10 @@ import CoreData
 
 class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var ingredients = [Ingredients]()
+    var recipes : [RecipeHits] = []
+    var ingredientsArray = [Ingredients]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+ 
     
     @IBOutlet weak var tableViewIngredients: UITableView!
     @IBOutlet weak var txtFieldIngredients: UITextField!
@@ -22,11 +24,27 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.delegate = self
         tableViewIngredients.dataSource = self
         loadIngredient()
-        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print(dataFilePath)
+//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        print(dataFilePath)
     }
     
-    @IBAction func addIngredient(_ sender: UIButton) {
+    
+    @IBAction func searchRecipeBtn(_ sender: Any) {
+        ApiModel().fetchResult(ingredientsArray) { (response) in
+            if response != nil {
+                if response!.hits.count > 0{
+                    self.recipes = response!.hits
+                    DispatchQueue.main.async {
+                        print("success")
+                    }
+                } else {
+                    print("Error")
+                }
+            }
+        }
+    }
+    
+    @IBAction func addIngredient(_ sender: Any) {
         addNewIngredient()
     }
     
@@ -38,7 +56,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func addNewIngredient(){
         let newIngredient = Ingredients(context: context)
         newIngredient.name = txtFieldIngredients.text!
-        ingredients.append(newIngredient)
+        ingredientsArray.append(newIngredient)
         saveIngredient()
         tableViewIngredients.reloadData()
         txtFieldIngredients.text = ""
@@ -56,7 +74,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func loadIngredient(){
         let request : NSFetchRequest<Ingredients> = Ingredients.fetchRequest()
         do {
-            ingredients = try context.fetch(request)
+            ingredientsArray = try context.fetch(request)
         } catch {
             print("Can't load data \(error.localizedDescription)")
         }
@@ -64,8 +82,8 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func clearAllIngredients(){
-        ingredients.forEach{context.delete($0)}
-        ingredients.removeAll()
+        ingredientsArray.forEach{context.delete($0)}
+        ingredientsArray.removeAll()
         saveIngredient()
         tableViewIngredients.reloadData()
     }
@@ -73,16 +91,26 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredients.count
+        return ingredientsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableViewIngredients.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-        let ingredientCell = ingredients[indexPath.row]
+        let ingredientCell = ingredientsArray[indexPath.row]
         cell.textLabel?.text = ingredientCell.value(forKey: "name") as? String
         cell.textLabel?.font = UIFont(name: "Marker Felt", size: 20)
         cell.textLabel?.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            context.delete(ingredientsArray[indexPath.row])
+            ingredientsArray.remove(at: indexPath.row)
+            tableViewIngredients.deleteRows(at: [indexPath], with: .fade)
+            saveIngredient()
+            tableViewIngredients.reloadData()
+        }
     }
     
     

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E13E9C32369CF0F000D38AF /* RecipeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E13E9C22369CF0F000D38AF /* RecipeDataModel.swift */; };
+		1E13E9C52369CFF5000D38AF /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E13E9C42369CFF5000D38AF /* Recipe.swift */; };
+		1E13E9C72369D07B000D38AF /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E13E9C62369D07B000D38AF /* ApiModel.swift */; };
+		1E13E9CB2369DC64000D38AF /* RecipeHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E13E9CA2369DC64000D38AF /* RecipeHits.swift */; };
 		1E8165012368979300E29216 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8165002368979300E29216 /* AppDelegate.swift */; };
 		1E8165062368979300E29216 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E8165042368979300E29216 /* Main.storyboard */; };
 		1E8165092368979300E29216 /* ReciPleaseOC.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E8165072368979300E29216 /* ReciPleaseOC.xcdatamodeld */; };
@@ -27,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E13E9C22369CF0F000D38AF /* RecipeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDataModel.swift; sourceTree = "<group>"; };
+		1E13E9C42369CFF5000D38AF /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		1E13E9C62369D07B000D38AF /* ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
+		1E13E9CA2369DC64000D38AF /* RecipeHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeHits.swift; sourceTree = "<group>"; };
 		1E8164FD2368979300E29216 /* ReciPleaseOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciPleaseOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E8165002368979300E29216 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E8165052368979300E29216 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +110,10 @@
 			isa = PBXGroup;
 			children = (
 				1E8165072368979300E29216 /* ReciPleaseOC.xcdatamodeld */,
+				1E13E9C62369D07B000D38AF /* ApiModel.swift */,
+				1E13E9CA2369DC64000D38AF /* RecipeHits.swift */,
+				1E13E9C42369CFF5000D38AF /* Recipe.swift */,
+				1E13E9C22369CF0F000D38AF /* RecipeDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,7 +254,11 @@
 			files = (
 				1E8165012368979300E29216 /* AppDelegate.swift in Sources */,
 				1E8165092368979300E29216 /* ReciPleaseOC.xcdatamodeld in Sources */,
+				1E13E9CB2369DC64000D38AF /* RecipeHits.swift in Sources */,
 				1E8165242368AF2100E29216 /* AddIngredientsVC.swift in Sources */,
+				1E13E9C32369CF0F000D38AF /* RecipeDataModel.swift in Sources */,
+				1E13E9C72369D07B000D38AF /* ApiModel.swift in Sources */,
+				1E13E9C52369CFF5000D38AF /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
