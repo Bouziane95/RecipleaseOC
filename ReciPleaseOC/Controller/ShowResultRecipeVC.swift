@@ -9,9 +9,10 @@
 import UIKit
 
 
-class ShowResultRecipe: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShowResultRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var recipeParsed : [RecipeHits]?
+    var recipeSelected : RecipeDataModel?
    
     @IBOutlet weak var tableViewSearch: UITableView!
     
@@ -61,6 +62,22 @@ class ShowResultRecipe: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        recipeSelected = recipeParsed![indexPath.row].recipe
+        tableViewSearch.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showDetailRecipe", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetailRecipe"{
+            let detailRecipeVC = segue.destination as! DetailRecipeVC
+            detailRecipeVC.recipeResult = recipeSelected
+            
+        }
+    }
+    
+    
     
     
     

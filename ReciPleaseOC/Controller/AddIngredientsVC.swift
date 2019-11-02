@@ -63,7 +63,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
 }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTableRecipe"{
-            let showResultVC = segue.destination as! ShowResultRecipe
+            let showResultVC = segue.destination as! ShowResultRecipeVC
             showResultVC.recipeParsed = recipes
         }
     }
