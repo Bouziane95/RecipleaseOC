@@ -38,6 +38,7 @@ class ShowResultRecipeVC: UIViewController, UITableViewDelegate, UITableViewData
         let ingredientLinesArray = recipe.ingredientLines
         let ingredientLinesArrayString = ingredientLinesArray.map{String($0)}
         let stringArray = ingredientLinesArrayString.joined(separator: ",")
+        
         //Turning float to a string
         let recipeTimeFloat = recipe.cookingTime
         let recipeTimeString = String(format: "%.f", recipeTimeFloat)
@@ -72,7 +73,8 @@ class ShowResultRecipeVC: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetailRecipe"{
             let detailRecipeVC = segue.destination as! DetailRecipeVC
-            detailRecipeVC.recipeResult = recipeSelected
+            detailRecipeVC.recipeFromSearch = recipeSelected
+            detailRecipeVC.isFavorite = false
             
         }
     }

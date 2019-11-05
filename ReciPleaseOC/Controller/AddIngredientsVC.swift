@@ -27,8 +27,8 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.dataSource = self
         loadIngredient()
         activityIndicator.isHidden = true
-//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print(dataFilePath)
+        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(dataFilePath)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,14 +101,26 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.reloadData()
     }
     
-    func loadIngredient(){
-        let request : NSFetchRequest<Ingredients> = Ingredients.fetchRequest()
+    func loadIngredient(request: NSFetchRequest<Ingredients> = Ingredients.fetchRequest(), predicate : NSPredicate? = nil){
+        let ingredientfetchRequest = NSFetchRequest<Ingredients>(entityName: "Ingredients")
+        let ingredientPredicate = NSPredicate(format: "recipe == nil", "")
+        ingredientfetchRequest.predicate = ingredientPredicate
+        
+        //Optionnal binding to know if the predicate is not nil
+        if let additionnalPredicate = predicate{
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [ingredientPredicate, additionnalPredicate])
+        } else {
+            //Add the predicate to the request
+            request.predicate = ingredientPredicate
+        }
         do {
             ingredientsArray = try context.fetch(request)
+            
         } catch {
-            print("Can't load data \(error.localizedDescription)")
+            print("Error \(error)")
         }
         tableViewIngredients.reloadData()
+        
     }
     
     func clearAllIngredients(){
@@ -118,7 +130,22 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.reloadData()
     }
     
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var sectionNumber : Int = 1
+        if ingredientsArray.count > 0 {
+            self.tableViewIngredients.backgroundView = nil
+            sectionNumber = 1
+        } else {
+            let noDataText : UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableViewIngredients.bounds.size.width, height: self.tableViewIngredients.bounds.size.height))
+            noDataText.text = "No ingredients yet ! Add some with the add button."
+            noDataText.font = UIFont(name: "Marker felt", size: 24)
+            noDataText.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            noDataText.textAlignment = .center
+            noDataText.numberOfLines = 0
+            self.tableViewIngredients.backgroundView = noDataText
+        }
+        return sectionNumber
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredientsArray.count
@@ -142,8 +169,5 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
             tableViewIngredients.reloadData()
         }
     }
-    
-    
-    
 }
 

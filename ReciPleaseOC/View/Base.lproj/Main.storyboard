@@ -166,21 +166,115 @@
             </objects>
             <point key="canvasLocation" x="1957.9710144927537" y="114.50892857142857"/>
         </scene>
-        <!--Favorite-->
+        <!--Reciplease Favorite-->
         <scene sceneID="V3V-wn-nDj">
             <objects>
-                <viewController id="46I-0C-pgx" sceneMemberID="viewController">
+                <viewController id="46I-0C-pgx" customClass="FavoriteRecipesVC" customModule="ReciPleaseOC" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TN5-8P-P9g">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hTM-XQ-Aoe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" red="0.21176470589999999" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="100" id="vCB-L2-PaK" customClass="FavoriteRecipeTableViewCell" customModule="ReciPleaseOC" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vCB-L2-PaK" id="MwM-IW-TI4">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="sCK-gi-Gfv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="99.5"/>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vCx-bj-tX1">
+                                                    <rect key="frame" x="323" y="35" width="70.5" height="29.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNJ-TC-9mM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="10" height="29.5"/>
+                                                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgo-XL-lwj">
+                                                            <rect key="frame" x="15" y="0.0" width="21.5" height="29.5"/>
+                                                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time" translatesAutoresizingMaskIntoConstraints="NO" id="GgS-bW-u1c">
+                                                            <rect key="frame" x="41.5" y="0.0" width="29" height="29.5"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="43" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73v-Ai-kqj">
+                                                    <rect key="frame" x="20" y="18" width="250" height="64"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-w4-2Y9">
+                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="22"/>
+                                                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hq9-Ac-moX">
+                                                            <rect key="frame" x="0.0" y="47.5" width="250" height="16.5"/>
+                                                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="250" id="IO9-Yc-APB"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="73v-Ai-kqj" firstAttribute="top" secondItem="MwM-IW-TI4" secondAttribute="topMargin" constant="7" id="2Zt-mj-RNP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="73v-Ai-kqj" secondAttribute="bottom" constant="7" id="By8-j0-FdZ"/>
+                                                <constraint firstItem="vCx-bj-tX1" firstAttribute="centerY" secondItem="MwM-IW-TI4" secondAttribute="centerY" id="QPg-C1-ncc"/>
+                                                <constraint firstItem="sCK-gi-Gfv" firstAttribute="leading" secondItem="MwM-IW-TI4" secondAttribute="leading" id="eXx-jr-Zzd"/>
+                                                <constraint firstAttribute="bottom" secondItem="sCK-gi-Gfv" secondAttribute="bottom" id="l4H-aU-CBw"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vCx-bj-tX1" secondAttribute="trailing" constant="0.5" id="meb-5U-Vtd"/>
+                                                <constraint firstItem="73v-Ai-kqj" firstAttribute="leading" secondItem="MwM-IW-TI4" secondAttribute="leadingMargin" id="nsb-n3-Fx6"/>
+                                                <constraint firstItem="sCK-gi-Gfv" firstAttribute="top" secondItem="MwM-IW-TI4" secondAttribute="top" id="wfv-Vi-a7E"/>
+                                                <constraint firstAttribute="trailing" secondItem="sCK-gi-Gfv" secondAttribute="trailing" id="x1N-cb-uyr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vCx-bj-tX1" secondAttribute="bottom" constant="24.5" id="zQp-oC-9wx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.21176470589999999" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="favoriteRecipeImage" destination="sCK-gi-Gfv" id="8zM-0U-W6f"/>
+                                            <outlet property="favoriteRecipeIngredients" destination="hq9-Ac-moX" id="bYT-MT-qzj"/>
+                                            <outlet property="favoriteRecipeTime" destination="QNJ-TC-9mM" id="SHE-Gu-oNx"/>
+                                            <outlet property="favoriteRecipeTitle" destination="hCn-w4-2Y9" id="xc0-55-rwf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="46I-0C-pgx" id="LCt-1W-VFf"/>
+                                    <outlet property="delegate" destination="46I-0C-pgx" id="SFj-tw-13h"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lNS-AX-gwO" firstAttribute="trailing" secondItem="hTM-XQ-Aoe" secondAttribute="trailing" id="2aS-NN-BoE"/>
+                            <constraint firstItem="hTM-XQ-Aoe" firstAttribute="leading" secondItem="lNS-AX-gwO" secondAttribute="leading" id="F5D-7V-mst"/>
+                            <constraint firstItem="lNS-AX-gwO" firstAttribute="bottom" secondItem="hTM-XQ-Aoe" secondAttribute="bottom" id="dMK-8p-d4M"/>
+                            <constraint firstItem="hTM-XQ-Aoe" firstAttribute="top" secondItem="lNS-AX-gwO" secondAttribute="top" id="uQg-vp-67Q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lNS-AX-gwO"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorite" id="Zw9-LL-kID"/>
+                    <navigationItem key="navigationItem" title="Reciplease Favorite" id="Mpx-1j-KFa"/>
+                    <connections>
+                        <outlet property="tableViewFavorite" destination="hTM-XQ-Aoe" id="ABV-ml-YEV"/>
+                        <segue destination="KEY-g0-wkR" kind="show" identifier="showDetailFavoriteRecipe" id="hsE-PB-YZU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zL2-Ft-ixX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1251" y="783"/>
+            <point key="canvasLocation" x="1958" y="783"/>
         </scene>
         <!--Search-->
         <scene sceneID="26B-Dp-kzy">
@@ -220,7 +314,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="ezn-O6-eMP" kind="relationship" relationship="viewControllers" id="n5I-i6-j1v"/>
-                        <segue destination="46I-0C-pgx" kind="relationship" relationship="viewControllers" id="nuU-i6-JRo"/>
+                        <segue destination="GOG-Uw-zji" kind="relationship" relationship="viewControllers" id="nuU-i6-JRo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNL-X8-RqZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -333,7 +427,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JSh-br-tP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626.0869565217395" y="114.50892857142857"/>
+            <point key="canvasLocation" x="2657" y="115"/>
         </scene>
         <!--Detail RecipeVC-->
         <scene sceneID="U3h-f6-KvL">
@@ -404,10 +498,22 @@
                                     <outlet property="delegate" destination="KEY-g0-wkR" id="7Sa-sr-NGq"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rg8-rY-Te2">
+                                <rect key="frame" x="30" y="118" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="OAK-Bb-yZk"/>
+                                    <constraint firstAttribute="height" constant="30" id="etf-n5-HrW"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="star"/>
+                                <connections>
+                                    <action selector="favBtnPressed:" destination="KEY-g0-wkR" eventType="touchUpInside" id="9T9-tz-z1w"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470589999999" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="ygV-Vc-I9Q" firstAttribute="centerX" secondItem="EVE-k0-Doi" secondAttribute="centerX" id="31H-jq-gVh"/>
+                            <constraint firstItem="Rg8-rY-Te2" firstAttribute="leading" secondItem="Hm3-Lt-5MW" secondAttribute="leading" constant="30" id="9OP-uD-kWt"/>
                             <constraint firstItem="Hm3-Lt-5MW" firstAttribute="trailing" secondItem="ygV-Vc-I9Q" secondAttribute="trailing" constant="20" id="BLX-4L-Rzs"/>
                             <constraint firstItem="tfb-9F-5OR" firstAttribute="top" secondItem="UNF-Sk-CU4" secondAttribute="bottom" constant="8" id="EKJ-DO-rog"/>
                             <constraint firstItem="Hm3-Lt-5MW" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wM6-DC-7Z3" secondAttribute="trailing" id="NP5-sd-9vU"/>
@@ -421,6 +527,7 @@
                             <constraint firstItem="E7T-Ge-fa8" firstAttribute="top" secondItem="Hm3-Lt-5MW" secondAttribute="top" constant="30" id="fhY-TZ-Bg7"/>
                             <constraint firstItem="Hm3-Lt-5MW" firstAttribute="trailing" secondItem="UNF-Sk-CU4" secondAttribute="trailing" constant="278.5" id="gS9-2t-xXm"/>
                             <constraint firstItem="wM6-DC-7Z3" firstAttribute="leading" secondItem="Hm3-Lt-5MW" secondAttribute="leading" constant="30" id="l10-Oj-9cW"/>
+                            <constraint firstItem="Rg8-rY-Te2" firstAttribute="top" secondItem="Hm3-Lt-5MW" secondAttribute="top" constant="30" id="mMv-4J-cN0"/>
                             <constraint firstItem="tfb-9F-5OR" firstAttribute="leading" secondItem="Hm3-Lt-5MW" secondAttribute="leading" id="pWL-x6-WPz"/>
                             <constraint firstItem="wM6-DC-7Z3" firstAttribute="top" secondItem="EVE-k0-Doi" secondAttribute="topMargin" constant="279" id="tDN-OH-dgR"/>
                             <constraint firstItem="tfb-9F-5OR" firstAttribute="bottom" secondItem="Hm3-Lt-5MW" secondAttribute="bottom" id="uK0-Hy-2BQ"/>
@@ -429,6 +536,7 @@
                         <viewLayoutGuide key="safeArea" id="Hm3-Lt-5MW"/>
                     </view>
                     <connections>
+                        <outlet property="favoriteBtn" destination="Rg8-rY-Te2" id="WUd-bX-fSK"/>
                         <outlet property="recipeImage" destination="ygV-Vc-I9Q" id="4ot-lQ-66w"/>
                         <outlet property="recipeName" destination="wM6-DC-7Z3" id="DJ1-bd-vdO"/>
                         <outlet property="recipeTime" destination="4sj-Kg-LEs" id="giC-dd-rUV"/>
@@ -437,11 +545,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBS-F1-jtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3305.7971014492755" y="114.50892857142857"/>
+            <point key="canvasLocation" x="2657" y="783"/>
+        </scene>
+        <!--Favorite-->
+        <scene sceneID="Dns-aU-vHi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GOG-Uw-zji" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorite" id="Zw9-LL-kID"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PKa-GU-lb6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.21176470589999999" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="25"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="46I-0C-pgx" kind="relationship" relationship="rootViewController" id="vWI-ri-38Q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lg6-9T-w3Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1250.7246376811595" y="782.8125"/>
         </scene>
     </scenes>
     <resources>
         <image name="noImage" width="800" height="511"/>
+        <image name="star" width="512" height="512"/>
         <image name="time" width="29" height="29"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hsE-PB-YZU"/>
+    </inferredMetricsTieBreakers>
 </document>
