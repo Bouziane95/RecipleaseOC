@@ -102,6 +102,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func loadIngredient(request: NSFetchRequest<Ingredients> = Ingredients.fetchRequest(), predicate : NSPredicate? = nil){
+        
         let ingredientfetchRequest = NSFetchRequest<Ingredients>(entityName: "Ingredients")
         let ingredientPredicate = NSPredicate(format: "recipe == nil", "")
         ingredientfetchRequest.predicate = ingredientPredicate

@@ -4,14 +4,14 @@
         <attribute name="recipeImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipeName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipeTime" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="ingredients" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredients" inverseName="recipe" inverseEntity="Ingredients" syncable="YES"/>
+        <relationship name="ingredients" toMany="YES" deletionRule="Cascade" destinationEntity="Ingredients" inverseName="recipe" inverseEntity="Ingredients" syncable="YES"/>
     </entity>
     <entity name="Ingredients" representedClassName="Ingredients" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FavoriteRecipe" inverseName="ingredients" inverseEntity="FavoriteRecipe" syncable="YES"/>
     </entity>
     <elements>
+        <element name="FavoriteRecipe" positionX="72.296875" positionY="-295.85546875" width="128" height="105"/>
         <element name="Ingredients" positionX="-93.2578125" positionY="-161.20703125" width="128" height="73"/>
-        <element name="FavoriteRecipe" positionX="72.296875" positionY="-295.85546875" width="128" height="103"/>
     </elements>
 </model>

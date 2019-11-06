@@ -24,6 +24,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var ingredientRecipe: Ingredients?
     var recipeArray: [NSManagedObject] = []
     var recipeFromSearch : RecipeDataModel?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,17 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func deleteRecipe(){
+        if let favoriteRecipe = favoriteRecipe{
+            context.delete(favoriteRecipe)
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     @IBAction func favBtnPressed(_ sender: UIButton) {
         
         if let recipeSearched = recipeFromSearch{
@@ -99,6 +111,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 let image = UIImage(named: "star")
                 sender.setImage(image, for: .normal)
+                deleteRecipe()
             }
             isFavorite = !isFavorite!
 
@@ -107,14 +120,14 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             if isFavorite!{
                 let image = UIImage(named: "star")
                 sender.setImage(image, for: .normal)
+                deleteRecipe()
             } else {
                 let image = UIImage(named: "star-filled")
                 sender.setImage(image, for: .normal)
-                let ingredientsArray = favoriteRecipe.ingredients!.allObjects
+                let ingredientsArray = favoriteRecipe.ingredients!.allObjects as! [Ingredients]
                 var stringArrayIngredients : [String] = []
                 for ingredients in ingredientsArray{
-                    let ingredient = ingredients as! Ingredients
-                    stringArrayIngredients.append(ingredient.name!)
+                    stringArrayIngredients.append(ingredients.name!)
                 }
                 let stringArrayOfIng = stringArrayIngredients.joined(separator: ",")
                 saveRecipe(recipeName: favoriteRecipe.recipeName!, recipeIngredients: stringArrayOfIng, recipeImage: favoriteRecipe.recipeImage!, recipeTime: favoriteRecipe.recipeTime)
@@ -149,8 +162,6 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
-
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let recipe = recipeFromSearch{

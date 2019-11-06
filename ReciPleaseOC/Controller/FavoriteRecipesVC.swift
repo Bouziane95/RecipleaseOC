@@ -46,6 +46,23 @@ class FavoriteRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var sectionNumber : Int = 1
+        if favoriteRecipeArray.count > 0 {
+            tableViewFavorite.backgroundView = nil
+            sectionNumber = 1
+        } else {
+            let noDataLabel : UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableViewFavorite.bounds.size.width, height: self.tableViewFavorite.bounds.size.height))
+            noDataLabel.text = "No recipe in the favorite section yet ! You have to add a new favorite recipe with the star button in the recipe details."
+            noDataLabel.font = UIFont(name: "Marker Felt", size: 24)
+            noDataLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            noDataLabel.textAlignment = .center
+            noDataLabel.numberOfLines = 0
+            self.tableViewFavorite.backgroundView = noDataLabel
+        }
+        return sectionNumber
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }
