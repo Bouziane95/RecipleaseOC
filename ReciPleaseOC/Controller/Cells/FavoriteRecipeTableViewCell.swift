@@ -16,12 +16,4 @@ class FavoriteRecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriteRecipeTime: UILabel!
     @IBOutlet weak var favoriteRecipeImage: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
 }

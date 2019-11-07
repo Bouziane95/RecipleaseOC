@@ -36,6 +36,7 @@ class FavoriteRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         tableViewFavorite.delegate = self
         tableViewFavorite.dataSource = self
+        self.navigationItem.hidesBackButton = true
     }
     
     func saveFavoriteRecipe(){
@@ -126,8 +127,4 @@ class FavoriteRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataS
             tableViewFavorite.reloadData()
         }
     }
-    
-    
-    
-    
 }

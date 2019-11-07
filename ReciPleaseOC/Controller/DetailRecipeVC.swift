@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
+    
     @IBOutlet weak var favoriteBtn: UIButton!
     @IBOutlet weak var tableViewIngredients: UITableView!
     @IBOutlet weak var recipeImage: UIImageView!
@@ -85,6 +85,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //mettre le context du favoris car celui qui est present provient de la recherche
     func deleteRecipe(){
         if let favoriteRecipe = favoriteRecipe{
             context.delete(favoriteRecipe)
@@ -93,17 +94,38 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             } catch {
                 print(error)
             }
+        } else if let searchRecipe = recipeFromSearch{
+            let recipeFetchRequest = NSFetchRequest<FavoriteRecipe>(entityName: "FavoriteRecipe")
+            let recipePredicate = NSPredicate(format: "recipeName == %@", searchRecipe.recipeName)
+            recipeFetchRequest.predicate = recipePredicate
+            do {
+                var recipe = try context.fetch(recipeFetchRequest)
+                if recipe.count > 1{
+                    for recipeIndex in 0...recipe.count - 1{
+                        let recipeToDelete = recipe[recipeIndex]
+                        context.delete(recipeToDelete)
+                    }
+                } else if recipe.count > 0 {
+                    let recipeToDelete = recipe[0]
+                    context.delete(recipeToDelete)
+                } else {
+                    return
+                }
+            } catch {
+                print(error)
+            }
         }
+        tableViewIngredients.reloadData()
     }
     
     @IBAction func favBtnPressed(_ sender: UIButton) {
         
         if let recipeSearched = recipeFromSearch{
-
-             let ingredientLinesArray = recipeSearched.ingredientLines
-             let ingredientLinesArrayString = ingredientLinesArray.map{String($0)}
-             let stringArrayIngredients = ingredientLinesArrayString.joined(separator: ",")
-
+            
+            let ingredientLinesArray = recipeSearched.ingredientLines
+            let ingredientLinesArrayString = ingredientLinesArray.map{String($0)}
+            let stringArrayIngredients = ingredientLinesArrayString.joined(separator: ",")
+            
             if !isFavorite!{
                 let image = UIImage(named: "star-filled")
                 sender.setImage(image, for: .normal)
@@ -114,13 +136,14 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 deleteRecipe()
             }
             isFavorite = !isFavorite!
-
+            
         } else if let favoriteRecipe = favoriteRecipe{
-
+            
             if isFavorite!{
                 let image = UIImage(named: "star")
                 sender.setImage(image, for: .normal)
                 deleteRecipe()
+                performSegue(withIdentifier: "showBack", sender: self)
             } else {
                 let image = UIImage(named: "star-filled")
                 sender.setImage(image, for: .normal)

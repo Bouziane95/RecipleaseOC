@@ -34,7 +34,7 @@ class ApiModel{
             guard let data = data else {completion(nil); return}
             do{
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                print(jsonObject)
+                //print(jsonObject)
                 let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
                 let decoder = JSONDecoder()
                 let recipe = try decoder.decode(Recipe.self, from: jsonData)

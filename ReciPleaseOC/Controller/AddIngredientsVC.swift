@@ -27,8 +27,8 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.dataSource = self
         loadIngredient()
         activityIndicator.isHidden = true
-        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print(dataFilePath)
+//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        print(dataFilePath)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,8 +43,8 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         if ingredientsArray.isEmpty{
             searchBtn.isHidden = false
             activityIndicator.isHidden = true
-            let alert = UIAlertController(title: "No ingredients", message: "Add some ingredients with the button add !", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok Thanks !", style: .default, handler: nil))
+            let alert = UIAlertController(title: "No ingredients !", message: "Add some ingredients with the button add !", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
             self.present(alert, animated: true)
         } else {
         ApiModel().fetchResult(ingredientsArray) { (response) in
@@ -101,7 +101,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.reloadData()
     }
     
-    func loadIngredient(request: NSFetchRequest<Ingredients> = Ingredients.fetchRequest(), predicate : NSPredicate? = nil){
+    func loadIngredient(with request: NSFetchRequest<Ingredients> = Ingredients.fetchRequest(), predicate : NSPredicate? = nil){
         
         let ingredientfetchRequest = NSFetchRequest<Ingredients>(entityName: "Ingredients")
         let ingredientPredicate = NSPredicate(format: "recipe == nil", "")
