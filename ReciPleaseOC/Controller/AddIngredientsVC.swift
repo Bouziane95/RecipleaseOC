@@ -131,6 +131,9 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.reloadData()
     }
     
+    // MARK: - UITableViewDelegate and DataSource
+    
+    //To add a default message when there is no ingredients recipe yet
     func numberOfSections(in tableView: UITableView) -> Int {
         var sectionNumber : Int = 1
         if ingredientsArray.count > 0 {

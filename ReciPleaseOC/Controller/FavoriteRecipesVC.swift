@@ -46,7 +46,9 @@ class FavoriteRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataS
             print("Error \(error.localizedDescription)")
         }
     }
+    // MARK: - UITableViewDelegate and DataSource
     
+    //To add a default message when there is no favorite recipe yet
     func numberOfSections(in tableView: UITableView) -> Int {
         var sectionNumber : Int = 1
         if favoriteRecipeArray.count > 0 {

@@ -56,6 +56,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         } else {
+            //Create an array of favorite recipe's ingredient
             var stringIngredientsFav = ""
             var arrayIngr = Array(favoriteRecipe!.ingredients!)
             for ingredients in arrayIngr as! [Ingredients]{
@@ -64,6 +65,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             arrayIngredientsFavorite = stringIngredientsFav.components(separatedBy: ",")
             arrayIngr.removeLast()
             
+            //Then load the informations of the favorite recipe
             recipeName.text = favoriteRecipe?.recipeName
             let image = UIImage(named: "star-filled")
             favoriteBtn.setImage(image, for: .normal)
@@ -85,7 +87,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    //mettre le context du favoris car celui qui est present provient de la recherche
+    
     func deleteRecipe(){
         if let favoriteRecipe = favoriteRecipe{
             context.delete(favoriteRecipe)
@@ -122,6 +124,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let recipeSearched = recipeFromSearch{
             
+            //Turning array of string to a string
             let ingredientLinesArray = recipeSearched.ingredientLines
             let ingredientLinesArrayString = ingredientLinesArray.map{String($0)}
             let stringArrayIngredients = ingredientLinesArrayString.joined(separator: ",")
@@ -186,6 +189,7 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    // MARK: - UITableViewDelegate and DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let recipe = recipeFromSearch{
             return recipe.ingredientLines.count

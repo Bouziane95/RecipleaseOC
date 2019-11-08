@@ -22,6 +22,8 @@ class ShowResultRecipeVC: UIViewController, UITableViewDelegate, UITableViewData
         tableViewSearch.dataSource = self
     }
     
+    // MARK: - UITableViewDelegate and DataSource
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }
@@ -75,12 +77,6 @@ class ShowResultRecipeVC: UIViewController, UITableViewDelegate, UITableViewData
             let detailRecipeVC = segue.destination as! DetailRecipeVC
             detailRecipeVC.recipeFromSearch = recipeSelected
             detailRecipeVC.isFavorite = false
-            
         }
     }
-    
-    
-    
-    
-    
 }

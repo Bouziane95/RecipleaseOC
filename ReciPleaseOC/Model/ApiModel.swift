@@ -16,6 +16,7 @@ class ApiModel{
     
     func fetchResult(_ ingredients: [Ingredients], completion: @escaping (Recipe?) -> Void){
         
+        //for loop to get all the ingredients
         var searchQuery = ""
         for ingredient in ingredients{
             searchQuery.append(ingredient.name!)
