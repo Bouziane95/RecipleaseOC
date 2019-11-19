@@ -31,6 +31,10 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
 //        print(dataFilePath)
     }
     
+    func managedObjectContext() -> NSManagedObjectContext{
+        return (context)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         activityIndicator.isHidden = true
         searchBtn.isHidden = false
@@ -93,6 +97,7 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func saveIngredient(){
+        guard context.hasChanges else {return}
         do{
             try context.save()
         } catch {

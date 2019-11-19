@@ -26,6 +26,9 @@ class DetailRecipeVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var recipeFromSearch : RecipeDataModel?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    func managedObjectContext() -> NSManagedObjectContext{
+        return (context)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if isFavorite!{

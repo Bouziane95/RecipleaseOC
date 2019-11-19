@@ -11,8 +11,18 @@ import Foundation
 
 class ApiModel{
     
+    init() {}
+    
     let apiKey = "48239141c2c8b5ceb8a13bfb7731b1c0"
     let appId = "5584b270"
+    
+    //Dependency injection for the tests
+    private var task : URLSessionDataTask?
+    private var session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
+    
+    init(session: URLSession) {
+        self.session = session
+    }
     
     func fetchResult(_ ingredients: [Ingredients], completion: @escaping (Recipe?) -> Void){
         
@@ -22,14 +32,11 @@ class ApiModel{
             searchQuery.append(ingredient.name!)
             searchQuery.append(",")
         }
-        //searchQuery.removeLast()
+        
         let urlRecipe = "https://api.edamam.com/search?q=\(searchQuery)&app_id=\(appId)&app_key=\(apiKey)&from=0&to=10"
         let url = URL(string: urlRecipe)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
-        
-        let sessionConfiguration = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfiguration, delegate: nil, delegateQueue: nil)
         
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else {completion(nil); return}
