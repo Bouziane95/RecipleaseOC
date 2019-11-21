@@ -1,8 +1,8 @@
 //
-//  StorageManager.swift
+//  StorageManagerRecipe.swift
 //  ReciPleaseOCTests
 //
-//  Created by Bouziane Bey on 19/11/2019.
+//  Created by Bouziane Bey on 21/11/2019.
 //  Copyright © 2019 Bouziane Bey. All rights reserved.
 //
 
@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 //this class is for the interactions with the CoreData
-class StorageManager {
+class StorageManagerRecipe {
     
     let persistentContainer: NSPersistentContainer!
     
@@ -31,7 +31,7 @@ class StorageManager {
         return self.persistentContainer.newBackgroundContext()
     }()
     
-    func saveIngredients(){
+    func saveRecipe(){
         do {
             try mockPersistantContainer.viewContext.save()
         } catch {
@@ -45,7 +45,7 @@ class StorageManager {
     }
     
     func flushData(){
-        let fetchRequest : NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "Ingredients")
+        let fetchRequest : NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
         let objs = try! mockPersistantContainer.viewContext.fetch(fetchRequest)
         for case let obj as NSManagedObject in objs{
             mockPersistantContainer.viewContext.delete(obj)

@@ -10,8 +10,6 @@ import Foundation
 import CoreData
 import UIKit
 
-
-
 var mockPersistantContainer: NSPersistentContainer = {
     
     //init a container with a customized managedObjectModel
