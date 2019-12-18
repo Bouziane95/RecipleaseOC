@@ -5,120 +5,83 @@
 //  Created by Bouziane Bey on 19/11/2019.
 //  Copyright © 2019 Bouziane Bey. All rights reserved.
 //
+//IMPORTANT !!
+//uiLocalNotification(time)
+//reusableView
 
-@testable import ReciPleaseOC
 import XCTest
 import CoreData
 
 class RecipeTestCase: XCTestCase {
     
-    var sut : StorageManager!
-    var sutRecipe: StorageManagerRecipe!
+    var managedObjectContext : NSManagedObjectContext!
     
     override func setUp() {
         super.setUp()
-        sut = StorageManager(container: mockPersistantContainer)
-        sutRecipe = StorageManagerRecipe(container: mockPersistantContainer)
+        self.managedObjectContext = setUpInMemoryManagedObjectContext()
     }
     
     override func tearDown() {
-        sut.flushData()
-        sutRecipe.flushData()
         super.tearDown()
     }
     
+    func setUpInMemoryManagedObjectContext() -> NSManagedObjectContext{
+        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
+        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        
+        do{
+            try persistentStoreCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+        } catch {
+            print("Error adding persistent store")
+        }
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        return managedObjectContext
+    }
+    
     // MARK: - Testing Ingredients in CoreData
-    func addIngredient(name: String) -> Ingredients?{
-        let obj = NSEntityDescription.insertNewObject(forEntityName: "Ingredients", into: mockPersistantContainer.viewContext)
-        obj.setValue(name, forKey: "name")
-        return obj as? Ingredients
+    func addIngredient(name: String) -> NSManagedObject{
+        let entityIngredient = NSEntityDescription.entity(forEntityName: "Ingredients", in: managedObjectContext)!
+        let ingredientLbl = NSManagedObject(entity: entityIngredient, insertInto: managedObjectContext)
+        ingredientLbl.setValue(name, forKey: "name")
+        return ingredientLbl
     }
     
-    func fetchIngredient() -> [Ingredients]{
-        let request : NSFetchRequest<Ingredients> = Ingredients.fetchRequest()
-        let results = try? mockPersistantContainer.viewContext.fetch(request)
-        return results ?? [Ingredients]()
+    func fetchIngredient() -> [NSManagedObject]{
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Ingredients")
+        let results = try? managedObjectContext.fetch(request)
+        return results as! [NSManagedObject]
     }
     
-    //Method to get the number of data in persistent store
-    func numberOfIngredientInPersistentStore() -> Int{
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Ingredients")
-        let result = try! mockPersistantContainer.viewContext.fetch(request)
-        return result.count
-    }
-    
-    //Adding ingredient
+    //Adding ingredient, then counting ingredient by fetching
     func testGivenEmptyCoreDataWhenUserSaveAnIngredientThenCoreDataIsIncremented(){
         let ingredient = "Onion"
-        let ingredientAdded = addIngredient(name: ingredient)
-        sut.saveIngredients()
-        XCTAssertNotNil(ingredientAdded)
-    }
-    
-    //Counting ingredient by fetching
-    func testGivenOneObjectInCoreDataStoredWhenUserSavedIngredientsThenCoreDataShouldRetrieveIt(){
+        addIngredient(name: ingredient)
         let results = fetchIngredient()
+        print(results)
         XCTAssertEqual(results.count, 1)
-    }
-    
-    //Remove ingredients and counting
-    func testGivenOneObjectInCoreDataWhenUserRemoveOneThenCoreDataDeleteOneIngredient(){
-        let ingredients = fetchIngredient()
-        let ingredient = ingredients[0]
-        
-        let numberOfIngredients = ingredients.count
-        sut.remove(objectID: ingredient.objectID)
-        sut.saveIngredients()
-        
-        XCTAssertEqual(numberOfIngredientInPersistentStore(), numberOfIngredients-1)
     }
     
     // MARK: - Testing Recipes in CoreData
-    
-    func addRecipe(recipeName: String) -> FavoriteRecipe?{
-        let obj = NSEntityDescription.insertNewObject(forEntityName: "FavoriteRecipe", into: mockPersistantContainer.viewContext)
-        obj.setValue(recipeName, forKey: "recipeName")
-        return obj as? FavoriteRecipe
+    func addRecipe(recipeName: String) -> NSManagedObject{
+        let entityRecipe = NSEntityDescription.entity(forEntityName: "FavoriteRecipe", in: managedObjectContext)!
+        let recipeLbl = NSManagedObject(entity: entityRecipe, insertInto: managedObjectContext)
+        recipeLbl.setValue(recipeName, forKey: "recipeName")
+        return recipeLbl
     }
     
-    func fetchRecipe() -> [FavoriteRecipe]{
-        let request : NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
-        let results = try? mockPersistantContainer.viewContext.fetch(request)
-        return results ?? [FavoriteRecipe]()
+    func fetchRecipe() -> [NSManagedObject]{
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
+        let results = try? managedObjectContext.fetch(request)
+        return results as! [NSManagedObject]
     }
     
-    //Method to get the number of data in persistent store
-    func numberOfRecipeInPersistentStore() -> Int{
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FavoriteRecipe")
-        let result = try! mockPersistantContainer.viewContext.fetch(request)
-        return result.count
-    }
-    
+    //Adding recipe, then counting recipe by fetching
     func testGivenEmptyCoreDataWhenUserSaveARecipeThenCoreDataIsIncremented(){
         let recipe = "Recipe1"
-        let recipeAdded = addRecipe(recipeName: recipe)
-        sutRecipe.saveRecipe()
-        XCTAssertNotNil(recipeAdded)
-    }
-    
-    //Counting recipe by fetching
-    func testGivenOneObjectInCoreDataStoredWhenUserSavedRecipeThenCoreDataShouldRetrieveIt(){
+        addRecipe(recipeName: recipe)
         let results = fetchRecipe()
+        print(results)
         XCTAssertEqual(results.count, 1)
     }
-    
-    //Remove recipe and counting
-    func testGivenOneRecipeInCoreDataWhenUserRemoveOneThenCoreDataDeleteOneRecipe(){
-        let recipes = fetchRecipe()
-        let recipe = recipes[0]
-        
-        let numberOfRecipes = recipes.count
-        sutRecipe.remove(objectID: recipe.objectID)
-        sutRecipe.saveRecipe()
-        
-        XCTAssertEqual(numberOfIngredientInPersistentStore(), numberOfRecipes-1)
-    }
-    
-    
-    
 }

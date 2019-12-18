@@ -12,6 +12,6 @@
     </entity>
     <elements>
         <element name="FavoriteRecipe" positionX="72.296875" positionY="-295.85546875" width="128" height="103"/>
-        <element name="Ingredients" positionX="-93.2578125" positionY="-161.20703125" width="128" height="73"/>
+        <element name="Ingredients" positionX="-93.2578125" positionY="-161.20703125" width="128" height="75"/>
     </elements>
 </model>

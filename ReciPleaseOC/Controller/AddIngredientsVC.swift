@@ -27,8 +27,6 @@ class AddIngredientsVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableViewIngredients.dataSource = self
         loadIngredient()
         activityIndicator.isHidden = true
-//        let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print(dataFilePath)
     }
     
     func managedObjectContext() -> NSManagedObjectContext{
